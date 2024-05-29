@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import {useNavigate} from "react-router-dom";
 
 function UserJoin() {
     const [formData, setFormData] = useState({
@@ -8,6 +9,8 @@ function UserJoin() {
         confirmPassword: '',
         nickname: ''
     });
+
+    const navigate = useNavigate();
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -31,7 +34,8 @@ function UserJoin() {
                 nickname: formData.nickname
             });
             alert("회원가입 성공.");
-            console.log(response.data);
+            navigate("/user/login");
+
         } catch (error) {
             console.error("회원가입 실패: ", error);
             alert("회원가입 실패.");
