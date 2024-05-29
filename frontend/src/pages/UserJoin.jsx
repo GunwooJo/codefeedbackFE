@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function UserSignUp() {
+function UserJoin() {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -85,4 +85,4 @@ function UserSignUp() {
     );
 }
 
-export default UserSignUp;
+export default UserJoin;
