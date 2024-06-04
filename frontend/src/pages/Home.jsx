@@ -26,6 +26,7 @@ export default function Home() {
     return (
         <div class="main-container">
             <div class="navigation-bar">
+                <button class="submit-button">submit</button>
                 <button class="navigation-button">my profile</button>
                 <button class="navigation-button">board list</button>
             </div>
