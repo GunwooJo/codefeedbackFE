@@ -7,6 +7,12 @@ body {
     margin: 0;
 }
 
+.submit-button {
+    float: left;
+    padding: 10px;
+    margin: 10px;
+}
+
 .navigation-button {
     float: right;
     padding: 10px;
