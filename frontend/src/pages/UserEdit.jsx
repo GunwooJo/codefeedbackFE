@@ -6,7 +6,7 @@ function UserEdit() {
     const [formData, setFormData] = useState({
         nickname: '',
         password: '',
-        comfirmPassword: ''
+        confirmPassword: ''
     });
     const navigate = useNavigate();
     const { userId } = useParams();
@@ -49,7 +49,7 @@ function UserEdit() {
                 password: formData.password
             });
             alert("회원정보 수정 성공");
-            navigate("/user/profile");
+            navigate("/user/info");
         } catch(error){
             console.error("회원정보 수정 실패: ", error);
             alert("회원정보 수정에 실패했습니다.");
