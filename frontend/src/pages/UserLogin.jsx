@@ -1,12 +1,13 @@
 import * as React from 'react';
 import axios from 'axios';
-//import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Encrypt } from '../components/HashString';
 
 export default function UserLogin() {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -15,12 +16,13 @@ export default function UserLogin() {
                 email: email,
                 password: password
             });
-            console.log(res.data);
-            //navigate("/user/login");
+            //console.log(res.data.data.email);
+            const encryptedUser = Encrypt(res.data.data.email + "&" + res.data.data.nickname)
+            alert("로그인 성공");
+            navigate(`/${encryptedUser}`);
         } catch (error) {
             console.log(error);
         }
-        
     };
 
     return (
@@ -37,7 +39,7 @@ export default function UserLogin() {
                     />
                 </div>
                 <div>
-                    <label>비밀반호:</label>
+                    <label>비밀번호:</label>
                     <input 
                         type="password" 
                         value={password} 
