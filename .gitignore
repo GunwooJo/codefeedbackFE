@@ -2,7 +2,7 @@
 
 #IDEA
 /.idea
-
+/frontend/.env
 # dependencies
 /frontend/node_modules
 /.pnp

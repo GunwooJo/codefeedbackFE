@@ -6,7 +6,7 @@ import { Encrypt } from '../components/HashString';
 export default function UserLogin() {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-    
+
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -15,11 +15,12 @@ export default function UserLogin() {
             const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/user/login`, {
                 email: email,
                 password: password
-            });
-            //console.log(res.data.data.email);
-            const encryptedUser = Encrypt(res.data.data.email + "&" + res.data.data.nickname)
+            }, {withCredentials: true});
+
+            // const encryptedUser = Encrypt(res.data.data.email + "&" + res.data.data.nickname)
             alert("로그인 성공");
-            navigate(`/${encryptedUser}`);
+            // navigate(`/${encryptedUser}`);
+            navigate('/', { state: { user: res.data.data } });
         } catch (error) {
             console.log(error);
         }
@@ -31,19 +32,19 @@ export default function UserLogin() {
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>이메일:</label>
-                    <input 
-                        type="email" 
-                        value={email} 
-                        onChange={(e) => setEmail(e.target.value)} 
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                     />
                 </div>
                 <div>
                     <label>비밀번호:</label>
-                    <input 
-                        type="password" 
-                        value={password} 
-                        onChange={(e) => setPassword(e.target.value)} 
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                 </div>
