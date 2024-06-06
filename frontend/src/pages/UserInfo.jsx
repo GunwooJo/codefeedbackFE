@@ -14,8 +14,12 @@ function UserInfo() {
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/info`);
-                setUserInfo(response.data);
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/info`, {withCredentials: true});
+                console.log(response.data.data);
+                setUserInfo({
+                    email: response.data.data.email,
+                    nickname: response.data.data.nickname
+                });
             } catch (error) {
                 console.error("사용자 정보 가져오기 실패: ", error);
                 alert("사용자 정보를 가져오는데 실패했습니다.");
