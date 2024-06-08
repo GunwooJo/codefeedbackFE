@@ -1,13 +1,12 @@
 import React, { createContext, useState } from 'react';
 
-// Context 생성
 export const UserContext = createContext(null);
 
-// Provider 컴포넌트
 export const UserProvider = ({ children }) => {
     const [loggedInUser, setLoggedInUser] = useState(null);
 
     const login = (userInfo) => {
+        console.log("로그인된 유저: " + JSON.stringify(userInfo));
         setLoggedInUser(userInfo);
     };
 
