@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import UserEdit from "./pages/UserEdit";
 import UserInfo from "./pages/UserInfo";
 import PostDetail from "./pages/PostDetail";
+import PostEdit from "./pages/PostEdit";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
               <Route path="/user/edit" element={<UserEdit/>}/>
               <Route path="/user/info" element={<UserInfo/>}/>
               <Route path="/post/:postId" element={<PostDetail/>}/>
+              <Route path="/post/edit/:postId" element={<PostEdit/>}/>
             </Routes>
         </BrowserRouter>
       </>

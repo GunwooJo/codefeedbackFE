@@ -44,7 +44,10 @@ function PostDetail() {
         <div>
             <h4>제목: {post.title}</h4>
             <div>{localStorage.getItem("")}</div>
-            {loggedInUserNickname === post.nickname ? <button>수정</button> : null}
+            {
+                loggedInUserNickname === post.nickname ?
+                <button onClick={()=>navigate(`/post/edit/${postId}`)}>수정</button> : null
+            }
             <p>내용: {post.content}</p>
             <ListGroup>
             {
