@@ -4,6 +4,7 @@ import UserLogin from "./pages/UserLogin";
 import Home from "./pages/Home";
 import UserEdit from "./pages/UserEdit";
 import UserInfo from "./pages/UserInfo";
+import PostDetail from "./pages/PostDetail";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
               <Route path="/user/login" element={<UserLogin />} />
               <Route path="/user/edit" element={<UserEdit/>}/>
               <Route path="/user/info" element={<UserInfo/>}/>
+              <Route path="/post/:postId" element={<PostDetail/>}/>
             </Routes>
         </BrowserRouter>
     </div>
