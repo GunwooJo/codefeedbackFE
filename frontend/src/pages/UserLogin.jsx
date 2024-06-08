@@ -1,13 +1,10 @@
 import * as React from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import {UserContext} from "../context/UserContext";
-import {useContext} from "react";
 
 export default function UserLogin() {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const { login } = useContext(UserContext);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -17,9 +14,8 @@ export default function UserLogin() {
                 email: email,
                 password: password
             }, {withCredentials: true});
-            login(res.data.data);
-
-            alert("로그인 성공");
+            localStorage.setItem("loggedInUserEmail", res.data.data.email);
+            localStorage.setItem("loggedInUserNickname", res.data.data.nickname);
             navigate('/', { state: { user: res.data.data } });
         } catch (error) {
             console.log(error);

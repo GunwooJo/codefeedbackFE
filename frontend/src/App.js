@@ -5,11 +5,10 @@ import Home from "./pages/Home";
 import UserEdit from "./pages/UserEdit";
 import UserInfo from "./pages/UserInfo";
 import PostDetail from "./pages/PostDetail";
-import {UserProvider} from "./context/UserContext";
 
 function App() {
   return (
-      <UserProvider>
+      <>
         <BrowserRouter>
             <Routes>
               <Route path="/" element={<Home />} />
@@ -20,7 +19,7 @@ function App() {
               <Route path="/post/:postId" element={<PostDetail/>}/>
             </Routes>
         </BrowserRouter>
-      </UserProvider>
+      </>
   );
 }
 

@@ -1,14 +1,12 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import ListGroup from 'react-bootstrap/ListGroup';
-import {UserContext} from "../context/UserContext";
 
 function PostDetail() {
 
     const navigate = useNavigate();
     const { postId } = useParams();
-    const { loggedInUser } = useContext(UserContext);
     const [post, setPost] = useState({
         id: null,
         nickname: '',
@@ -17,6 +15,7 @@ function PostDetail() {
         access: null,
         messages: []
     })
+    const loggedInUserNickname = localStorage.getItem("loggedInUserNickname");
 
     useEffect(() => {
         const fetchPostData = async () => {
@@ -41,19 +40,11 @@ function PostDetail() {
         fetchPostData();
     }, []);
 
-    useEffect(() => {
-        if (loggedInUser) {
-            console.log('이래도 안나와? : ' + loggedInUser.nickname);
-        }
-    }, [loggedInUser]);
-
     return (
         <div>
             <h4>제목: {post.title}</h4>
-            {
-                loggedInUser ? <div>{loggedInUser.nickname}</div> : <div>로그인 안됨</div>
-            }
-            {/*{loggedInUser.nickname === post.nickname ? <button>수정</button> : null}*/}
+            <div>{localStorage.getItem("")}</div>
+            {loggedInUserNickname === post.nickname ? <button>수정</button> : null}
             <p>내용: {post.content}</p>
             <ListGroup>
             {
