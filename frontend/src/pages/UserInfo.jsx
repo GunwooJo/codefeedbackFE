@@ -12,22 +12,24 @@ function UserInfo() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchUserInfo = async () => {
-            try {
-                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/info`, {withCredentials: true});
-                console.log(response.data.data);
-                setUserInfo({
-                    email: response.data.data.email,
-                    nickname: response.data.data.nickname
-                });
-            } catch (error) {
+        const email = localStorage.getItem('loggedInUserEmail');
+        if (email) {
+            axios.get(`${process.env.REACT_APP_SERVER_URL}/user/info`, {
+                headers: {
+                    email: email
+                }
+            })
+            .then(response => {
+                setUserInfo(response.data.data);
+            })
+            .catch(error => {
                 console.error("사용자 정보 가져오기 실패: ", error);
-                alert("사용자 정보를 가져오는데 실패했습니다.");
-            }
-        };
-
-        fetchUserInfo();
-    }, []);
+                navigate('/user/login');
+            });
+        } else {
+            navigate('/user/login');
+        }
+    }, [navigate]);
 
     const handleShow = () => setShowModal(true);
     const handleEdit = () => navigate('/user/edit');

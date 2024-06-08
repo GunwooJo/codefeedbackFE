@@ -9,25 +9,18 @@ function UserEdit() {
         confirmPassword: ''
     });
     const navigate = useNavigate();
-    const { userId } = useParams();
 
     useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${userId}`);
-                setFormData({
-                    nickname: response.data.nickname,
-                    password: '',
-                    confirmPassword: ''
-                });
-            } catch (error) {
-                console.error("사용자 정보 가져오기 실패: ", error);
-                alert("사용자 정보를 가져오는데 실패했습니다.");
-            }
-        };
-
-        fetchUserData();
-    }, [userId]);
+        const nickname = localStorage.getItem('loggedInUserNickname');
+        if (nickname) {
+            setFormData(prevState => ({
+                ...prevState,
+                nickname
+            }));
+        } else {
+            navigate('/user/login');
+        }
+    }, [navigate]);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -39,18 +32,24 @@ function UserEdit() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if (formData.password !== formData.confirmPassword){
+        if (formData.password !== formData.confirmPassword) {
             alert("비밀번호가 일치하지 않습니다.");
             return;
         }
         try {
-            await axios.put(`${process.env.REACT_APP_SERVER_URL}/user/${userId}`,{
+            const email = localStorage.getItem('loggedInUserEmail');
+            await axios.put(`${process.env.REACT_APP_SERVER_URL}/user/edit`, {
                 nickname: formData.nickname,
                 password: formData.password
+            }, {
+                headers: {
+                    email: email
+                }
             });
             alert("회원정보 수정 성공");
+            localStorage.setItem("loggedInUserNickname", formData.nickname);
             navigate("/user/info");
-        } catch(error){
+        } catch (error) {
             console.error("회원정보 수정 실패: ", error);
             alert("회원정보 수정에 실패했습니다.");
         }
@@ -74,6 +73,16 @@ function UserEdit() {
                     type="password"
                     name="password"
                     value={formData.password}
+                    onChange={handleChange}
+                    required
+                />
+            </div>
+            <div>
+                <label>비밀번호 확인:</label>
+                <input
+                    type="password"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
                     onChange={handleChange}
                     required
                 />
