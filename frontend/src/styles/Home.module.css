@@ -7,19 +7,19 @@ body {
     margin: 0;
 }
 
-.submit-button {
+.submitButton {
     float: left;
     padding: 10px;
     margin: 10px;
 }
 
-.navigation-button {
+.navigationButton {
     float: right;
     padding: 10px;
     margin: 10px;
 }
 
-.chat-container {
+.chatContainer {
     width: 1080px;
     height: 400px;
     max-width: 100%;
@@ -38,34 +38,34 @@ body {
     margin-bottom: 10px;
 }
 
-.message.sent {
+.messageSent {
     flex-direction: row-reverse;
 }
 
-.message-content {
+.messageContent {
     max-width: 70%;
     padding: 10px 15px;
     border-radius: 18px;
     position: relative;
 }
 
-.message-content p {
+.messageContent p {
     margin: 0;
 }
 
 
-.message.received .message-content {
+.messageReceived .messageContent {
     background-color: #f1f0f0;
     border-top-left-radius: 0;
 }
 
-.message.sent .message-content {
+.messageSent .messageContent {
     background-color: #0084ff;
     color: #fff;
     border-top-right-radius: 0;
 }
 
-.input-container form {
+.inputContainer form {
     display: flex;
     justify-content: center;
 }
