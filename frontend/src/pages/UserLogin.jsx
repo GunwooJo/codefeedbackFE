@@ -1,12 +1,13 @@
 import * as React from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import { Encrypt } from '../components/HashString';
+import {UserContext} from "../context/UserContext";
+import {useContext} from "react";
 
 export default function UserLogin() {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-
+    const { login } = useContext(UserContext);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -16,10 +17,9 @@ export default function UserLogin() {
                 email: email,
                 password: password
             }, {withCredentials: true});
+            login(res.data.data);
 
-            // const encryptedUser = Encrypt(res.data.data.email + "&" + res.data.data.nickname)
             alert("로그인 성공");
-            // navigate(`/${encryptedUser}`);
             navigate('/', { state: { user: res.data.data } });
         } catch (error) {
             console.log(error);
