@@ -6,6 +6,8 @@ import UserEdit from "./pages/UserEdit";
 import UserInfo from "./pages/UserInfo";
 import PostDetail from "./pages/PostDetail";
 import PostEdit from "./pages/PostEdit";
+import MyPostList from "./pages/MyPostList";
+import PublicPostList from "./pages/PublicPostList";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
               <Route path="/user/info" element={<UserInfo/>}/>
               <Route path="/post/:postId" element={<PostDetail/>}/>
               <Route path="/post/edit/:postId" element={<PostEdit/>}/>
+              <Route path="/post/mine" element={<MyPostList/>}/>
+              <Route path="/post/public" element={<PublicPostList/>}/>
             </Routes>
         </BrowserRouter>
       </>
