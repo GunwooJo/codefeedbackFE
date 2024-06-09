@@ -17,7 +17,8 @@ function UserInfo() {
             axios.get(`${process.env.REACT_APP_SERVER_URL}/user/info`, {
                 headers: {
                     email: email
-                }
+                },
+                withCredentials: true
             })
             .then(response => {
                 setUserInfo(response.data.data);
