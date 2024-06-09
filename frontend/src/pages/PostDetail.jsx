@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import ListGroup from 'react-bootstrap/ListGroup';
+import DeletePost from '../components/DeletePost';
 
 function PostDetail() {
 
@@ -16,6 +17,7 @@ function PostDetail() {
         messages: []
     })
     const loggedInUserNickname = localStorage.getItem("loggedInUserNickname");
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     useEffect(() => {
         const fetchPostData = async () => {
@@ -38,7 +40,18 @@ function PostDetail() {
         };
 
         fetchPostData();
-    }, []);
+    }, [postId]);
+
+    const handleDelete = async () => {
+        try {
+            await axios.delete(`${process.env.REACT_APP_SERVER_URL}/post/${postId}`, {withCredentials: true});
+            alert("게시글이 삭제되었습니다.");
+            navigate('/');
+        } catch (error) {
+            console.error("게시글 삭제 실패: ", error);
+            alert("게시글 삭제에 실패했습니다.");
+        }
+    };
 
     return (
         <div>
@@ -46,8 +59,12 @@ function PostDetail() {
             <div>{localStorage.getItem("")}</div>
             {
                 loggedInUserNickname === post.nickname ?
-                <button onClick={()=>navigate(`/post/edit/${postId}`)}>수정</button> : null
+                <div>
+                    <button onClick={()=>navigate(`/post/edit/${postId}`)}>수정</button> 
+                    <button onClick={()=>setShowDeleteModal(true)}>삭제</button>
+                </div> : null
             }
+
             <p>내용: {post.content}</p>
             <ListGroup>
             {
@@ -72,6 +89,11 @@ function PostDetail() {
                 })
             }
             </ListGroup>
+            <DeletePost
+                show={showDeleteModal}
+                handleClose={() => setShowDeleteModal(false)}
+                handleDelete={handleDelete}
+            />
         </div>
     );
 }
