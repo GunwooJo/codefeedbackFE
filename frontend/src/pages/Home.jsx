@@ -17,7 +17,7 @@ export default function Home() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            CodeFeedback(text).then((res) => {
+            CodeFeedback(text, history).then((res) => {
                 setHistory([...history, [text, res]]);
             });
         } catch (error) {

@@ -8,7 +8,15 @@ const openai = new OpenAI({
     dangerouslyAllowBrowser: true
 });
 
-export default async function CodeFeedback(prompt) {
+export default async function CodeFeedback(prompt, history) {
+    let req = '' // 질문
+    let res = '' // 대답
+    Object.values(history).map((v, k) => {
+        req += `유저의 ${k}번째 입력: ${v[0]}\n`
+        res += `시스템의 ${k}번째 출력: ${v[1]}\n`
+    });
+    console.log(req);
+    console.log(res);
     const completion = await openai.chat.completions.create({
         messages: [{ role: "system", content: system_prompt },
         { "role": "user", "content": prompt }],
