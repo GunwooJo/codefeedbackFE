@@ -1,89 +1,52 @@
-body {
-    background-color: #f0f2f5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: auto;
-    margin: 0;
-}
-
-.submitButton {
-    float: left;
-    padding: 10px;
-    margin: 10px;
-}
-
 .navigationButton {
-    float: right;
     padding: 10px;
     margin: 10px;
 }
 
 .chatContainer {
-    width: 1080px;
-    height: 400px;
-    max-width: 100%;
-    background: #ffffff;
+    width: 100%;
+    height: fit-content;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     padding: 20px;
-    display: flex;
     flex-direction: column;
-    gap: 10px;
+    justify-self: center;
 }
 
-.message {
+.receivedMessage {
     display: flex;
     align-items: flex-end;
     margin-bottom: 10px;
-}
-
-.messageSent {
-    flex-direction: row-reverse;
-}
-
-.messageContent {
-    max-width: 70%;
-    padding: 10px 15px;
-    border-radius: 18px;
+    padding: 30px;
+    border: 2px, solid, #cfcfcf;
+    border-radius: 10px;
+    flex-direction: row;
     position: relative;
 }
 
-.messageContent p {
-    margin: 0;
-}
-
-
-.messageReceived .messageContent {
-    background-color: #f1f0f0;
-    border-top-left-radius: 0;
-}
-
-.messageSent .messageContent {
-    background-color: #0084ff;
-    color: #fff;
-    border-top-right-radius: 0;
-}
-
-.inputContainer form {
+.sentMessage {
     display: flex;
-    justify-content: center;
+    align-content: flex-end;
+    margin-bottom: 10px;
+    padding: 30px;
+    border: 2px, solid, #0084ff;
+    border-radius: 10px;
+    flex-direction: row-reverse;
+    position: relative;
 }
 
-form {
-    margin-top: 20px;
-}
-
-form > textarea {
+.textbox {
     width: 90%;
-    height: 30%;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     resize: none;
+    vertical-align: middle;
 }
 
-form > input {
-    font-size: large;
+.textsubmit {
+    width: 10%;
+    padding: 85px 5px;
+    vertical-align: middle;
 }

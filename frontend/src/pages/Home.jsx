@@ -12,28 +12,21 @@ export default function Home() {
     return (
         <div>
             <div>
-                <button className={styles.submitButton}>submit</button>
-                <button className={styles.navigationButton}>my profile</button>
                 <button className={styles.navigationButton}>board list</button>
+                <button className={styles.navigationButton}>my profile</button>
             </div>
             <div className={styles.chatContainer}>
-                <div className={styles.messageReceived}>
-                    <div className={styles.messageContent}>
-                        <p>Test!Test!Test!Test!Test!Test!Test!Test!Test!Test!Test!Test!Test!</p>
-                    </div>
+                <div className={styles.receivedMessage}>
+                    hello
                 </div>
-                <div className={styles.messageSent}>
-                    <div className={styles.messageContent}>
-                        <p>Test!Test!Test!Test!Test!Test!Test!Test!Test!Test!Test!Test!Test!</p>
-                    </div>
+                <div className={styles.sentMessage}>
+                    hello
                 </div>
+                <form>
+                    <textarea className={styles.textbox} rows="8"/>
+                    <input className={styles.textsubmit} type='submit' value="입력"/>
+                </form>
             </div>
-                <div className={styles.inputContainer}>
-                    <form>
-                        <textarea rows="8"/>
-                        <input type='submit'/>
-                    </form>
-                </div>
         </div>
     );
 };
