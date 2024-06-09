@@ -12,12 +12,18 @@ function UserWithdrawal({showModal, setShowModal}) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        const email = localStorage.getItem('loggedInUserEmail');
 
         try {
             const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/user`, {
-                password: password,
+                data: {
+                    email: email,
+                    password: password,
+                }, withCredentials:true
             });
             alert("회원탈퇴 성공.");
+            localStorage.removeItem('loggedInUserEmail');
+            localStorage.removeItem('loggedInUserNickname');
             navigate("/");
 
         } catch (error) {
