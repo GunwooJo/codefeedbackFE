@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import ListGroup from 'react-bootstrap/ListGroup';
 import DeletePost from '../components/DeletePost';
+import styles from '../styles/PostDetail.module.css'
 
 function PostDetail() {
 
@@ -55,30 +56,30 @@ function PostDetail() {
 
     return (
         <div>
-            <h4>제목: {post.title}</h4>
+            <h4 className={styles.title}>제목: {post.title}</h4>
             <div>{localStorage.getItem("")}</div>
             {
                 loggedInUserNickname === post.nickname ?
-                <div>
-                    <button onClick={()=>navigate(`/post/edit/${postId}`)}>수정</button> 
-                    <button onClick={()=>setShowDeleteModal(true)}>삭제</button>
+                <div className={styles.buttonContainer}>
+                    <button className={styles.navigationButton} onClick={()=>navigate(`/post/edit/${postId}`)}>수정</button>
+                    <button className={styles.navigationButton} onClick={()=>setShowDeleteModal(true)}>삭제</button>
                 </div> : null
             }
 
-            <p>내용: {post.content}</p>
+            <p className={styles.content}>내용: {post.content}</p>
             <ListGroup>
             {
                 post.messages.map((message, idx) => {
 
                     if(message.role === "user") {
                         return (
-                            <ListGroup.Item key={idx}>
+                            <ListGroup.Item key={idx} className={styles.userMessage}>
                                 {post.nickname}: {message.content}
                             </ListGroup.Item>
                         )
                     } else if(message.role === "system") {
                         return (
-                            <ListGroup.Item key={idx}>
+                            <ListGroup.Item key={idx} className={styles.systemMessage}>
                                 {message.role}: {message.content}
                             </ListGroup.Item>
                         )
