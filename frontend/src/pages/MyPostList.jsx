@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import ListGroup from "react-bootstrap/ListGroup";
 import {Link} from "react-router-dom";
+import styles from '../styles/PostList.module.css'
 
 function MyPostList() {
     const [posts, setPosts] = useState([]);
@@ -25,13 +26,13 @@ function MyPostList() {
 
     return (
         <div>
-            <h4>내 게시글 목록</h4>
+            <h4 className={styles.title}>내 게시글 목록</h4>
             <ListGroup>
                 {
                     posts.map((post, idx) => {
                         return (
-                            <ListGroup.Item key={idx}>
-                                <Link to={`/post/${post.id}`}>{post.title}</Link>
+                            <ListGroup.Item key={idx} className={styles.content}>
+                                <Link to={`/post/${post.id}`}>{post.title}</Link> {post.access ? "(Public)": "(Private)"}
                             </ListGroup.Item>
                         )
                     })
