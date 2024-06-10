@@ -17,8 +17,9 @@ export default function Home() {
     const navigate = useNavigate();
 
     React.useEffect(() => {
-        //alert(`${nickname}님 환영합니다.`);  //테스트용 코드. 해당 user.nickname, user.email로 유저 정보 조회 가능합니다.
-        //alert(now);
+        if (email == null) {
+            navigate("/user/login");
+        }
     },[]);
 
     const handleSubmit = async (e) => {
@@ -65,6 +66,7 @@ export default function Home() {
                 "messages": messages
             }, {withCredentials: true});
             console.log(response);
+            window.location.reload();
         } catch(error) {
             console.log(error);
         }
