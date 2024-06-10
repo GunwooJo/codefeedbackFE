@@ -35,12 +35,21 @@
     position: relative;
 }
 
+.boardSubmitButton {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-self: left;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
 .textbox {
     width: 90%;
     font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: 1px, solid, #000000;
     resize: none;
     vertical-align: middle;
 }
@@ -48,5 +57,7 @@
 .textsubmit {
     width: 10%;
     padding: 85px 5px;
+    border: 2px, solid, #000000;
+    border-radius: 10px;
     vertical-align: middle;
 }

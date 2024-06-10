@@ -1,4 +1,5 @@
 import * as React from 'react';
+import axios from 'axios';
 import {useNavigate} from "react-router-dom";
 import styles from '../styles/Home.module.css'
 import CodeFeedback from '../components/CodeFeedback';
@@ -11,10 +12,13 @@ export default function Home() {
     const email = localStorage.getItem('loggedInUserEmail');
     const nickname = localStorage.getItem('loggedInUserNickname');
 
+    const now = new Date().getTime();
+
     const navigate = useNavigate();
 
     React.useEffect(() => {
         //alert(`${nickname}님 환영합니다.`);  //테스트용 코드. 해당 user.nickname, user.email로 유저 정보 조회 가능합니다.
+        //alert(now);
     },[]);
 
     const handleSubmit = async (e) => {
@@ -27,6 +31,41 @@ export default function Home() {
             console.log(error);
         }
         setText('');
+    };
+
+    const createBoard = async (e) => {
+        e.preventDefault();
+        try {
+            let timer = 0;
+            let messages = [];
+            Object.values(history).map((v, k) => {
+                messages.push(
+                    {
+                        "role": "user",
+                        "createdAt": now + timer,
+                        "content": v[0]
+                    }
+                )
+                timer += 1;
+                messages.push(
+                    {
+                        "role": "system",
+                        "createdAt": now + timer,
+                        "content": v[1]
+                    }
+                )
+                timer += 1;
+            })
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/post`, {
+                "title": "테스트입니다.",
+                "content": "테스트입니다.",
+                "access": true,
+                "messages": messages
+            }, {withCredentials: true});
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
@@ -48,6 +87,7 @@ export default function Home() {
                         </div>
                     );
                 })}
+                <button className={styles.boardSubmitButton} onClick={createBoard}>Submit</button>
                 <form onSubmit={handleSubmit}>
                     <textarea className={styles.textbox} rows="8" value={text} onChange={(e) => setText(e.target.value)} required/>
                     <input className={styles.textsubmit} type='submit' value="입력"/>

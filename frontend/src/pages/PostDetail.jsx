@@ -76,7 +76,7 @@ function PostDetail() {
                                 {post.nickname}: {message.content}
                             </ListGroup.Item>
                         )
-                    } else if(message.role === "assistant") {
+                    } else if(message.role === "system") {
                         return (
                             <ListGroup.Item key={idx}>
                                 {message.role}: {message.content}
