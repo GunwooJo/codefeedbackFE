@@ -2,7 +2,7 @@ import * as React from 'react';
 import axios from 'axios';
 import {useNavigate} from "react-router-dom";
 import styles from '../styles/Home.module.css'
-import CodeFeedback from '../components/CodeFeedback';
+import { CodeFeedback, Summary } from '../components/CodeFeedback';
 
 
 export default function Home() {
@@ -38,6 +38,8 @@ export default function Home() {
         try {
             let timer = 0;
             let messages = [];
+            const summary = await Summary(history);
+            console.log(summary);
             Object.values(history).map((v, k) => {
                 messages.push(
                     {
@@ -57,13 +59,13 @@ export default function Home() {
                 timer += 1;
             })
             const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/post`, {
-                "title": "테스트입니다.",
-                "content": "테스트입니다.",
-                "access": true,
+                "title": `${nickname}님의 세션`,
+                "content": summary,
+                "access": false,
                 "messages": messages
             }, {withCredentials: true});
             console.log(response);
-        } catch (error) {
+        } catch(error) {
             console.log(error);
         }
     };
@@ -71,8 +73,9 @@ export default function Home() {
     return (
         <div>
             <div>
-                <button className={styles.navigationButton} onClick={() => {navigate("/post/public")}}>board list</button>
-                <button className={styles.navigationButton} onClick={() => {navigate("/user/info")}}>my profile</button>
+                <button className={styles.navigationButton} onClick={() => {navigate("/post/public")}}>PUBLIC BOARD</button>
+                <button className={styles.navigationButton} onClick={() => {navigate("/post/mine")}}>PRIVATE BOARD</button>
+                <button className={styles.navigationButton} onClick={() => {navigate("/user/info")}}>MY PROFILE</button>
             </div>
             <div className={styles.chatContainer}>
                 {Object.values(history).map((v, k) => {
