@@ -1,6 +1,8 @@
 import * as React from 'react';
+import {useNavigate} from "react-router-dom";
 import styles from '../styles/Home.module.css'
 import CodeFeedback from '../components/CodeFeedback';
+
 
 export default function Home() {
     const [text, setText] = React.useState('');
@@ -9,8 +11,10 @@ export default function Home() {
     const email = localStorage.getItem('loggedInUserEmail');
     const nickname = localStorage.getItem('loggedInUserNickname');
 
+    const navigate = useNavigate();
+
     React.useEffect(() => {
-        alert(`${nickname}님 환영합니다.`);  //테스트용 코드. 해당 user.nickname, user.email로 유저 정보 조회 가능합니다.
+        //alert(`${nickname}님 환영합니다.`);  //테스트용 코드. 해당 user.nickname, user.email로 유저 정보 조회 가능합니다.
     },[]);
 
     const handleSubmit = async (e) => {
@@ -28,8 +32,8 @@ export default function Home() {
     return (
         <div>
             <div>
-                <button className={styles.navigationButton}>board list</button>
-                <button className={styles.navigationButton}>my profile</button>
+                <button className={styles.navigationButton} onClick={() => {navigate("/post/public")}}>board list</button>
+                <button className={styles.navigationButton} onClick={() => {navigate("/user/info")}}>my profile</button>
             </div>
             <div className={styles.chatContainer}>
                 {Object.values(history).map((v, k) => {
