@@ -1,17 +1,16 @@
 import * as React from 'react';
 import styles from '../styles/Home.module.css'
-import {useLocation} from 'react-router-dom';
 import CodeFeedback from '../components/CodeFeedback';
 
 export default function Home() {
     const [text, setText] = React.useState('');
     const [history, setHistory] = React.useState([]);
 
-    const location = useLocation();
-    const user = location.state.user;
+    const email = localStorage.getItem('loggedInUserEmail');
+    const nickname = localStorage.getItem('loggedInUserNickname');
 
     React.useEffect(() => {
-        //alert(`${user.nickname}님 환영합니다.`);  //테스트용 코드. 해당 user.nickname, user.email로 유저 정보 조회 가능합니다.
+        alert(`${nickname}님 환영합니다.`);  //테스트용 코드. 해당 user.nickname, user.email로 유저 정보 조회 가능합니다.
     },[]);
 
     const handleSubmit = async (e) => {
