@@ -3,11 +3,13 @@ import axios from 'axios';
 import {useNavigate} from "react-router-dom";
 import styles from '../styles/Home.module.css'
 import { CodeFeedback, Summary } from '../components/CodeFeedback';
+import Spinner from 'react-bootstrap/Spinner';
 
 
 export default function Home() {
     const [text, setText] = React.useState('');
     const [history, setHistory] = React.useState([]);
+    const [isLoading, setIsLoading] = React.useState(false);
 
     const email = localStorage.getItem('loggedInUserEmail');
     const nickname = localStorage.getItem('loggedInUserNickname');
@@ -24,18 +26,21 @@ export default function Home() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         try {
-            CodeFeedback(text, history).then((res) => {
+            await CodeFeedback(text, history).then((res) => {
                 setHistory([...history, [text, res]]);
             });
         } catch (error) {
             console.log(error);
         }
         setText('');
+        setIsLoading(false);
     };
 
     const createBoard = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         try {
             let timer = 0;
             let messages = [];
@@ -66,6 +71,7 @@ export default function Home() {
                 "messages": messages
             }, {withCredentials: true});
             console.log(response);
+            setIsLoading(false);
             window.location.reload();
         } catch(error) {
             console.log(error);
@@ -98,6 +104,16 @@ export default function Home() {
                     <input className={styles.textsubmit} type='submit' value="입력"/>
                 </form>
             </div>
+            {
+                isLoading ?
+                    <div className={styles.centerSpinner}>
+                        <Spinner animation="border" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>
+                    </div>
+                    : null
+            }
+
         </div>
     );
 };

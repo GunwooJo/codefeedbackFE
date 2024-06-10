@@ -61,3 +61,15 @@
     border-radius: 10px;
     vertical-align: middle;
 }
+
+.centerSpinner {
+    position: fixed;       /* 고정 위치 */
+    top: 50%;              /* 상단에서 50% 위치 */
+    left: 50%;             /* 왼쪽에서 50% 위치 */
+    transform: translate(-50%, -50%); /* 정확히 중앙에 배치 */
+    width: 100vw;          /* 뷰포트 너비 */
+    height: 100vh;         /* 뷰포트 높이 */
+    display: flex;         /* Flexbox를 사용 */
+    justify-content: center; /* 가운데 정렬 */
+    align-items: center;   /* 중앙 정렬 */
+}
