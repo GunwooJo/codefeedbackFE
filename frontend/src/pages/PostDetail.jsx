@@ -63,6 +63,7 @@ function PostDetail() {
                 <div className={styles.buttonContainer}>
                     <button className={styles.navigationButton} onClick={()=>navigate(`/post/edit/${postId}`)}>수정</button>
                     <button className={styles.navigationButton} onClick={()=>setShowDeleteModal(true)}>삭제</button>
+                    <button className={styles.navigationButton} onClick={()=>navigate(`/`)}>홈</button>
                 </div> : null
             }
 

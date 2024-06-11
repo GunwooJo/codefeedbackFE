@@ -1,6 +1,7 @@
 import * as React from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import styles from '../styles/UserLogin.module.css'
 
 export default function UserLogin() {
     const [email, setEmail] = React.useState('');
@@ -44,7 +45,8 @@ export default function UserLogin() {
                         required
                     />
                 </div>
-                <button type="submit">로그인</button>
+                <button className={styles.navigationButton} type="submit">로그인</button>
+                <button className={styles.navigationButton} type="button" onClick={()=>navigate(`/user/join`)}>회원가입</button>
             </form>
         </div>
     );
