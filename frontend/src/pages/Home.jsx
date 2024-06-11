@@ -26,6 +26,7 @@ export default function Home() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setText('');
         setIsLoading(true);
         try {
             await CodeFeedback(text, history).then((res) => {
@@ -34,7 +35,6 @@ export default function Home() {
         } catch (error) {
             console.log(error);
         }
-        setText('');
         setIsLoading(false);
     };
 
