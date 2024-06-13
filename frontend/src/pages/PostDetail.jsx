@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ListGroup from 'react-bootstrap/ListGroup';
 import DeletePost from '../components/DeletePost';
 import styles from '../styles/PostDetail.module.css'
+import ReactMarkdown from "react-markdown";
 
 function PostDetail() {
 
@@ -81,7 +82,7 @@ function PostDetail() {
                     } else if(message.role === "system") {
                         return (
                             <ListGroup.Item key={idx} className={styles.systemMessage}>
-                                {message.role}: {message.content}
+                                {message.role}: <ReactMarkdown>{message.content}</ReactMarkdown>
                             </ListGroup.Item>
                         )
                     } else {
