@@ -82,7 +82,9 @@ function PostDetail() {
                     } else if(message.role === "system") {
                         return (
                             <ListGroup.Item key={idx} className={styles.systemMessage}>
-                                {message.role}: <ReactMarkdown>{message.content}</ReactMarkdown>
+                                <pre className={styles.codeStyle}>
+                                    {message.role}: <ReactMarkdown>{message.content}</ReactMarkdown>
+                                </pre>
                             </ListGroup.Item>
                         )
                     } else {
