@@ -3,6 +3,7 @@ import axios from 'axios';
 import ListGroup from "react-bootstrap/ListGroup";
 import {Link} from "react-router-dom";
 import styles from '../styles/PostList.module.css'
+import Badge from 'react-bootstrap/Badge';
 
 function MyPostList() {
     const [posts, setPosts] = useState([]);
@@ -32,7 +33,7 @@ function MyPostList() {
                     posts.map((post, idx) => {
                         return (
                             <ListGroup.Item key={idx} className={styles.content}>
-                                <Link to={`/post/${post.id}`}>{post.title}</Link> {post.access ? "(Public)": "(Private)"}
+                                <Link style={{textDecoration: "none", color: "black"}} to={`/post/${post.id}`}>{post.title}</Link> {post.access ? null : <Badge bg="primary">비공개</Badge>}
                             </ListGroup.Item>
                         )
                     })

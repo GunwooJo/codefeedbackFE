@@ -67,7 +67,7 @@ function PostDetail() {
                 </div> : null
             }
 
-            <p className={styles.content}>내용: {post.content}</p>
+            <p className={styles.content}>요약: {post.content}</p>
             <ListGroup>
             {
                 post.messages.map((message, idx) => {

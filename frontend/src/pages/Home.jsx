@@ -46,6 +46,11 @@ export default function Home() {
 
     const createBoard = async (e) => {
         e.preventDefault();
+        let title = prompt("제목을 입력해주세요.");
+        if (title === null) {
+            alert("제목을 입력해야 저장할 수 있습니다.");
+            return;
+        }
         setIsLoading(true);
         try {
             let timer = 0;
@@ -71,7 +76,7 @@ export default function Home() {
                 timer += 1;
             })
             const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/post`, {
-                "title": `${nickname}님의 세션`,
+                "title": title,
                 "content": summary,
                 "access": false,
                 "messages": messages
@@ -87,9 +92,9 @@ export default function Home() {
     return (
         <div>
             <div>
-                <button className={styles.navigationButton} onClick={() => {navigate("/post/public")}}>PUBLIC BOARD</button>
-                <button className={styles.navigationButton} onClick={() => {navigate("/post/mine")}}>PRIVATE BOARD</button>
-                <button className={styles.navigationButton} onClick={() => {navigate("/user/info")}}>MY PROFILE</button>
+                <button className={styles.navigationButton} onClick={() => {navigate("/post/public")}}>공개된 게시글</button>
+                <button className={styles.navigationButton} onClick={() => {navigate("/post/mine")}}>내 게시글</button>
+                <button className={styles.navigationButton} onClick={() => {navigate("/user/info")}}>내 정보</button>
             </div>
             <div className={styles.chatContainer}>
                 {Object.values(history).map((v, k) => {
@@ -104,10 +109,10 @@ export default function Home() {
                         </div>
                     );
                 })}
-                <button className={styles.boardSubmitButton} onClick={createBoard}>Submit</button>
+                <button className={styles.boardSubmitButton} onClick={createBoard}>게시글로 저장</button>
                 <select className={styles.selectButton} onChange={handleChange}>
-                    <option value="question">질문</option>
-                    <option value="explanation">설명</option>
+                    <option value="question">보완할 점 제안받기</option>
+                    <option value="explanation">코드에 대해 설명받기</option>
                 </select>
                 <form onSubmit={handleSubmit}>
                     <textarea className={styles.textbox} rows="8" value={text} onChange={(e) => setText(e.target.value)} required/>

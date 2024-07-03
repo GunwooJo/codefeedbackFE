@@ -32,7 +32,7 @@ function MyPostList() {
                     posts.map((post, idx) => {
                         return (
                             <ListGroup.Item key={idx} className={styles.content}>
-                                <Link to={`/post/${post.id}`}>{post.title}</Link>
+                                <Link style={{textDecoration: "none", color: "black"}} to={`/post/${post.id}`}>{post.title}</Link>
                             </ListGroup.Item>
                         )
                     })
