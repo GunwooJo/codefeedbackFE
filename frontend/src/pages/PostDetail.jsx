@@ -4,6 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ListGroup from 'react-bootstrap/ListGroup';
 import DeletePost from '../components/DeletePost';
 import styles from '../styles/PostDetail.module.css'
+import ReactMarkdown from "react-markdown";
+import Badge from 'react-bootstrap/Badge';
 
 function PostDetail() {
 
@@ -75,13 +77,15 @@ function PostDetail() {
                     if(message.role === "user") {
                         return (
                             <ListGroup.Item key={idx} className={styles.userMessage}>
-                                {post.nickname}: {message.content}
+                                <Badge bg="primary">{post.nickname}</Badge><br/> {message.content}
                             </ListGroup.Item>
                         )
                     } else if(message.role === "system") {
                         return (
                             <ListGroup.Item key={idx} className={styles.systemMessage}>
-                                {message.role}: {message.content}
+                                <pre className={styles.codeStyle}>
+                                    <Badge bg="success">인공지능</Badge> <ReactMarkdown>{message.content}</ReactMarkdown>
+                                </pre>
                             </ListGroup.Item>
                         )
                     } else {

@@ -37,6 +37,10 @@
     position: relative;
 }
 
+.codeStyle {
+    white-space: pre-wrap;
+}
+
 .boardSubmitButton {
     display: flex;
     flex-direction: row-reverse;

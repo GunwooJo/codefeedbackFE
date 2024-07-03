@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 import styles from '../styles/Home.module.css'
 import { CodeFeedback, Summary } from '../components/CodeFeedback';
 import Spinner from 'react-bootstrap/Spinner';
+import ReactMarkdown from "react-markdown";
 
 
 export default function Home() {
@@ -24,11 +25,6 @@ export default function Home() {
             navigate("/user/login");
         }
     },[]);
-
-    const handleChange = (e) => {
-        e.preventDefault();
-        setSelectOption(e.target.value);
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -104,13 +100,16 @@ export default function Home() {
                                 {v[0]}
                             </div>
                             <div className={styles.receivedMessage}>
-                                {v[1]}
+                                <pre className={styles.codeStyle}>
+                                    <ReactMarkdown>{v[1]}</ReactMarkdown>
+                                </pre>
                             </div>
                         </div>
                     );
                 })}
-                <button className={styles.boardSubmitButton} onClick={createBoard}>게시글로 저장</button>
-                <select className={styles.selectButton} onChange={handleChange}>
+
+                <button className={styles.boardSubmitButton} onClick={createBoard}>Submit</button>
+                <select className={styles.selectButton} onChange={(e) => setSelectOption(e.target.value)}>
                     <option value="question">보완할 점 제안받기</option>
                     <option value="explanation">코드에 대해 설명받기</option>
                 </select>
