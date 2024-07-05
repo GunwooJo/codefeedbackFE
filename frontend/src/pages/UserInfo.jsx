@@ -48,7 +48,7 @@ function UserInfo() {
                 <span>{userInfo.nickname}</span>
             </div>
             <button onClick={handleEdit} className={styles.navigationButton}>수정</button>
-            <button onClick={handleShow} className={styles.navigationButton}>탈퇴</button>
+            {/*<button onClick={handleShow} className={styles.navigationButton}>탈퇴</button>*/}
             <UserWithdrawal showModal={showModal} setShowModal={setShowModal} />
         </div>
     );

@@ -19,6 +19,11 @@ export default function UserLogin() {
             localStorage.setItem("loggedInUserNickname", res.data.data.nickname);
             navigate('/', { state: { user: res.data.data } });
         } catch (error) {
+            if(error.response.status === 401) {
+                alert("아이디나 비밀번호가 틀렸어요.");
+            } else {
+                alert("알 수 없는 문제가 발생했습니다. 다시 시도해주세요.");
+            }
             console.log(error);
         }
     };
