@@ -45,7 +45,8 @@ function UserEdit() {
             }, {
                 headers: {
                     email: email
-                }
+                },
+                withCredentials: true
             });
             alert("회원정보 수정 성공");
             localStorage.setItem("loggedInUserNickname", formData.nickname);

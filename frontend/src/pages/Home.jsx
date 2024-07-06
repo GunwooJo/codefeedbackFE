@@ -108,7 +108,7 @@ export default function Home() {
                     );
                 })}
 
-                <button className={styles.boardSubmitButton} onClick={createBoard}>Submit</button>
+                <button className={styles.boardSubmitButton} onClick={createBoard}>게시글로 저장</button>
                 <select className={styles.selectButton} onChange={(e) => setSelectOption(e.target.value)}>
                     <option value="question">보완할 점 제안받기</option>
                     <option value="explanation">코드에 대해 설명받기</option>
