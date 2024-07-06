@@ -28,7 +28,7 @@ function UserJoin() {
         }
 
         try {
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/user`, {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/user/join`, {
                 email: formData.email,
                 password: formData.password,
                 nickname: formData.nickname

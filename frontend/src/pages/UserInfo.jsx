@@ -15,12 +15,9 @@ function UserInfo() {
     useEffect(() => {
         const email = localStorage.getItem('loggedInUserEmail');
         if (email) {
-            axios.get(`${process.env.REACT_APP_SERVER_URL}/user/info`, {
-                headers: {
-                    email: email
-                },
-                withCredentials: true
-            })
+            axios.post(`${process.env.REACT_APP_SERVER_URL}/user/info`,
+                {email: email},
+                {withCredentials: true})
             .then(response => {
                 setUserInfo(response.data.data);
             })
