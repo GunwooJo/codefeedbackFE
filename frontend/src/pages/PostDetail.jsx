@@ -7,10 +7,12 @@ import styles from '../styles/PostDetail.module.css'
 import ReactMarkdown from "react-markdown";
 import Badge from 'react-bootstrap/Badge';
 import useSessionCheck from "../hooks/useSessionCheck";
+import Spinner from "react-bootstrap/Spinner";
+import styles2 from "../styles/Home.module.css";
 
 function PostDetail() {
 
-    const {loggedInUser} = useSessionCheck();
+    const {loggedInUser, sessionChecking} = useSessionCheck();
 
     const navigate = useNavigate();
     const { postId } = useParams();
@@ -70,13 +72,22 @@ function PostDetail() {
         }
     };
 
+    if (sessionChecking) {
+        return (
+            <div className={styles2.centerSpinner}>
+                <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </Spinner>
+            </div>
+        );
+    }
     return (
         <div>
             <h4 className={styles.title}>제목: {post.title}</h4>
             {
                 loggedInUser.nickname === post.nickname ?
                     <div className={styles.buttonContainer}>
-                        <button className={styles.navigationButton}
+                    <button className={styles.navigationButton}
                                 onClick={() => navigate(`/post/edit/${postId}`)}>수정
                         </button>
                         <button className={styles.navigationButton} onClick={() => setShowDeleteModal(true)}>삭제</button>
