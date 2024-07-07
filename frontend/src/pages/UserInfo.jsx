@@ -13,27 +13,26 @@ function UserInfo() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const email = localStorage.getItem('loggedInUserEmail');
-        if (email) {
-            axios.post(`${process.env.REACT_APP_SERVER_URL}/user/info`,
-                {email: email},
-                {withCredentials: true})
-            .then(response => {
-                setUserInfo(response.data.data);
-            })
-            .catch(error => {
-                console.error("사용자 정보 가져오기 실패: ", error);
 
-                if (error.response.status === 401) {
+        async function checkSession() {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/session/check`,{withCredentials: true});
+                setUserInfo(response.data.data);
+
+            } catch (error) {
+
+                if (error.response && error.response.status === 401) {
                     alert("로그인이 필요합니다.");
-                    navigate('/user/login');
+                    navigate("/user/login");
                 } else {
-                    alert("잠시 후 다시 시도해주세요.");
+                    console.error(error);
+                    alert("오류가 발생했습니다.");
                 }
-            });
-        } else {
-            navigate('/user/login');
+            }
+
         }
+
+        checkSession();
     }, [navigate]);
 
     const handleShow = () => setShowModal(true);
