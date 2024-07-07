@@ -5,9 +5,9 @@ import styles from '../styles/UserEdit.module.css'
 import useSessionCheck from "../hooks/useSessionCheck";
 
 function UserEdit() {
-    const {loggedInUser, statusCode} = useSessionCheck();
+    const {loggedInUser} = useSessionCheck();
     const [formData, setFormData] = useState({
-        nickname: loggedInUser.nickname,
+        nickname: '',
         password: '',
         confirmPassword: ''
     });
@@ -33,11 +33,6 @@ function UserEdit() {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if (statusCode === 401) {
-            alert("로그인이 필요합니다.");
-            return;
-        }
-
         if (formData.password !== formData.confirmPassword) {
             alert("비밀번호가 일치하지 않습니다.");
             return;
@@ -53,7 +48,12 @@ function UserEdit() {
             navigate("/user/info");
         } catch (error) {
             console.error("회원정보 수정 실패: ", error);
-            alert("회원정보 수정에 실패했습니다. 잠시 후 다시 시도해주세요.");
+            if (error.response && error.response.status === 401) {
+                alert("로그인이 필요합니다.");
+                navigate("/user/login");
+            } else {
+                alert("회원정보 수정에 실패했습니다. 잠시 후 다시 시도해주세요.");
+            }
         }
     };
 
