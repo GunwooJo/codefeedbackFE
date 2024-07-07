@@ -23,7 +23,13 @@ function UserInfo() {
             })
             .catch(error => {
                 console.error("사용자 정보 가져오기 실패: ", error);
-                navigate('/user/login');
+
+                if (error.response.status === 401) {
+                    alert("로그인이 필요합니다.");
+                    navigate('/user/login');
+                } else {
+                    alert("잠시 후 다시 시도해주세요.");
+                }
             });
         } else {
             navigate('/user/login');
