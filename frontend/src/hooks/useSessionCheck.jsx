@@ -25,11 +25,10 @@ const useSessionCheck = () => {
                         nickname: response.data.data.nickname
                     });
 
-                } else {
-                    setSessionValid(false);
                 }
             } catch (error) {
                 setStatusCode(error.response.status);
+                setSessionValid(false);
                 setError(error);
             } finally {
                 setSessionChecking(false);
