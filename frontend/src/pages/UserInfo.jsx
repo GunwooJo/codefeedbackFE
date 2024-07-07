@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserWithdrawal from "../components/UserWithdrawal";
 import styles from '../styles/UserInfo.module.css'
@@ -6,9 +6,18 @@ import styles2 from "../styles/PostDetail.module.css";
 import useSessionCheck from "../hooks/useSessionCheck";
 
 function UserInfo() {
-    const {loggedInUser} = useSessionCheck();
+    const {loggedInUser, sessionValid, sessionChecking} = useSessionCheck();
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!sessionChecking) {
+            if (!sessionValid) {
+                alert("로그인이 필요합니다.");
+                navigate("/user/login");
+            }
+        }
+    }, [sessionValid, sessionChecking]);
 
     const handleShow = () => setShowModal(true);
     const handleEdit = () => navigate('/user/edit');
