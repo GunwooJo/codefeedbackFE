@@ -3,6 +3,7 @@ import axios from 'axios';
 import ListGroup from "react-bootstrap/ListGroup";
 import {Link, useNavigate} from "react-router-dom";
 import styles from '../styles/PostList.module.css'
+import styles2 from '../styles/PostDetail.module.css';
 
 function MyPostList() {
     const [posts, setPosts] = useState([]);
@@ -34,12 +35,16 @@ function MyPostList() {
     return (
         <div>
             <h4 className={styles.title}>공개 게시글 목록</h4>
+            <div className={styles2.buttonContainer}>
+                <button className={styles2.navigationButton} onClick={() => navigate(`/`)}>홈</button>
+            </div>
             <ListGroup>
                 {
                     posts.map((post, idx) => {
                         return (
                             <ListGroup.Item key={idx} className={styles.content}>
-                                <Link style={{textDecoration: "none", color: "black"}} to={`/post/${post.id}`}>{post.title}</Link>
+                                <Link style={{textDecoration: "none", color: "black"}}
+                                      to={`/post/${post.id}`}>{post.title}</Link>
                             </ListGroup.Item>
                         )
                     })

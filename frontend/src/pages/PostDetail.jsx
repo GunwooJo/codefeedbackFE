@@ -83,7 +83,9 @@ function PostDetail() {
                         <button className={styles.navigationButton} onClick={() => setShowDeleteModal(true)}>삭제</button>
                         <button className={styles.navigationButton} onClick={() => navigate(`/post/public`)}>목록</button>
                     </div> :
-                    <button className={styles.navigationButton} onClick={() => navigate(`/post/public`)}>목록</button>
+                    <div className={styles.buttonContainer}>
+                        <button className={styles.navigationButton} onClick={() => navigate(`/post/public`)}>목록</button>
+                    </div>
             }
 
             <p className={styles.content}>요약: {post.content}</p>
