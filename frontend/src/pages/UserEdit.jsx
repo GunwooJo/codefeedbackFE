@@ -5,7 +5,7 @@ import styles from '../styles/UserEdit.module.css'
 import useSessionCheck from "../hooks/useSessionCheck";
 
 function UserEdit() {
-    const {loggedInUser} = useSessionCheck();
+    const {loggedInUser, sessionChecking, statusCode} = useSessionCheck();
     const [formData, setFormData] = useState({
         nickname: '',
         password: '',
@@ -14,13 +14,21 @@ function UserEdit() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (loggedInUser && loggedInUser.nickname) {
-            setFormData(formData => ({
-                ...formData,
-                nickname: loggedInUser.nickname
-            }));
+        if (!sessionChecking) {
+            if (statusCode === 401) {
+                alert("로그인이 필요합니다.");
+                navigate("/user/login");
+            }
+            else if (statusCode === 200) {
+                setFormData(formData => ({
+                    ...formData,
+                    nickname: loggedInUser.nickname
+                }));
+            } else {
+                alert("서버 문제가 발생했습니다. 잠시 후 다시 시도해주세요.");
+            }
         }
-    }, [loggedInUser]);
+    }, [loggedInUser, sessionChecking, statusCode]);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
