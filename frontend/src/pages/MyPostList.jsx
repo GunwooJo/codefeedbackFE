@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import ListGroup from "react-bootstrap/ListGroup";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import styles from '../styles/PostList.module.css'
 import Badge from 'react-bootstrap/Badge';
 
 function MyPostList() {
     const [posts, setPosts] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchPostData = async () => {
