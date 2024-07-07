@@ -25,7 +25,13 @@ function PostEdit() {
 
             } catch (error) {
                 console.error("게시글 정보 가져오기 실패: ", error);
-                alert("게시글 정보를 가져오는데 실패했습니다.");
+
+                if (error.response.status === 401) {
+                    alert("로그인이 필요합니다.");
+                    navigate('/user/login');
+                } else {
+                    alert("게시글 정보를 가져오는데 실패했습니다.");
+                }
             }
         };
 

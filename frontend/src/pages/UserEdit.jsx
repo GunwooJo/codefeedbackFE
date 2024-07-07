@@ -53,7 +53,13 @@ function UserEdit() {
             navigate("/user/info");
         } catch (error) {
             console.error("회원정보 수정 실패: ", error);
-            alert("회원정보 수정에 실패했습니다.");
+
+            if (error.response.status === 401) {
+                alert("로그인이 필요합니다.");
+                navigate('/user/login');
+            } else {
+                alert("회원정보 수정에 실패했습니다. 잠시 후 다시 시도해주세요.");
+            }
         }
     };
 
