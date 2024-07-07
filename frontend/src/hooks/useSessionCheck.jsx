@@ -29,6 +29,7 @@ const useSessionCheck = () => {
                     setSessionValid(false);
                 }
             } catch (error) {
+                setStatusCode(error.response.status);
                 setError(error);
             } finally {
                 setSessionChecking(false);
