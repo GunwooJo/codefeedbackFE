@@ -5,25 +5,36 @@ import styles from '../styles/Home.module.css'
 import { CodeFeedback, Summary } from '../components/CodeFeedback';
 import Spinner from 'react-bootstrap/Spinner';
 import ReactMarkdown from "react-markdown";
-
+import {useEffect, useState} from "react";
 
 export default function Home() {
-    const [text, setText] = React.useState('');
-    const [history, setHistory] = React.useState([]);
-    const [isLoading, setIsLoading] = React.useState(false);
-    const [selectOption, setSelectOption] = React.useState("question");
-
-    const email = localStorage.getItem('loggedInUserEmail');
-    const nickname = localStorage.getItem('loggedInUserNickname');
+    const [text, setText] = useState('');
+    const [history, setHistory] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [selectOption, setSelectOption] = useState("question");
+    const [isCheckingSession, setIsCheckingSession] = useState(true);
 
     const now = new Date().getTime();
-
     const navigate = useNavigate();
 
-    React.useEffect(() => {
-        if (email == null) {
-            navigate("/user/login");
+    useEffect(() => {
+        async function checkSession() {
+            try {
+                await axios.get(`${process.env.REACT_APP_SERVER_URL}/session/check`,{withCredentials: true});
+                setIsCheckingSession(false);
+            } catch (error) {
+
+                if (error.response && error.response.status === 401) {
+                    navigate("/user/login");
+                } else {
+                    console.error(error);
+                    alert("오류가 발생했습니다.");
+                }
+            }
+
         }
+
+        checkSession();
     },[]);
 
     const handleSubmit = async (e) => {
@@ -84,6 +95,10 @@ export default function Home() {
             console.log(error);
         }
     };
+
+    if(isCheckingSession) {
+        return null;
+    }
 
     return (
         <div>
