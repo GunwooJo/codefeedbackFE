@@ -6,36 +6,30 @@ import { CodeFeedback, Summary } from '../components/CodeFeedback';
 import Spinner from 'react-bootstrap/Spinner';
 import ReactMarkdown from "react-markdown";
 import {useEffect, useState} from "react";
+import useSessionCheck from "../hooks/useSessionCheck";
 
 export default function Home() {
+    const {sessionChecking, error, statusCode} = useSessionCheck();
     const [text, setText] = useState('');
     const [history, setHistory] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [selectOption, setSelectOption] = useState("question");
-    const [isCheckingSession, setIsCheckingSession] = useState(true);
 
     const now = new Date().getTime();
     const navigate = useNavigate();
 
     useEffect(() => {
-        async function checkSession() {
-            try {
-                await axios.get(`${process.env.REACT_APP_SERVER_URL}/session/check`,{withCredentials: true});
-                setIsCheckingSession(false);
-            } catch (error) {
+        if (!sessionChecking) {
 
-                if (error.response && error.response.status === 401) {
-                    navigate("/user/login");
-                } else {
-                    console.error(error);
-                    alert("오류가 발생했습니다.");
-                }
+            if (statusCode === 401) {
+                navigate("/user/login");
+            } else if (statusCode === 500) {
+                alert("서버 에러가 발생했습니다. 잠시 후 다시 시도해주세요.");
+                console.error(error);
             }
-
         }
 
-        checkSession();
-    },[]);
+    },[sessionChecking, statusCode, error]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -96,7 +90,7 @@ export default function Home() {
         }
     };
 
-    if(isCheckingSession) {
+    if(sessionChecking) {
         return null;
     }
 
