@@ -6,15 +6,17 @@ import styles2 from "../styles/PostDetail.module.css";
 import useSessionCheck from "../hooks/useSessionCheck";
 
 function UserInfo() {
-    const {loggedInUser, sessionValid, sessionChecking} = useSessionCheck();
+    const {loggedInUser, sessionValid, sessionChecking, statusCode} = useSessionCheck();
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
         if (!sessionChecking) {
-            if (!sessionValid) {
+            if (statusCode === 401) {
                 alert("로그인이 필요합니다.");
                 navigate("/user/login");
+            } else if (statusCode === 500) {
+                alert("서버 문제가 발생했습니다. 잠시 후 다시 시도해주세요.");
             }
         }
     }, [sessionValid, sessionChecking]);
