@@ -15,8 +15,7 @@ export default function UserLogin() {
                 email: email,
                 password: password
             }, {withCredentials: true});
-            localStorage.setItem("loggedInUserEmail", res.data.data.email);
-            localStorage.setItem("loggedInUserNickname", res.data.data.nickname);
+
             navigate('/', { state: { user: res.data.data } });
         } catch (error) {
             if(error.response.status === 401) {

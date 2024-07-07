@@ -6,8 +6,11 @@ import DeletePost from '../components/DeletePost';
 import styles from '../styles/PostDetail.module.css'
 import ReactMarkdown from "react-markdown";
 import Badge from 'react-bootstrap/Badge';
+import useSessionCheck from "../hooks/useSessionCheck";
 
 function PostDetail() {
+
+    const {loggedInUser} = useSessionCheck();
 
     const navigate = useNavigate();
     const { postId } = useParams();
@@ -19,7 +22,6 @@ function PostDetail() {
         access: null,
         messages: []
     })
-    const loggedInUserNickname = localStorage.getItem("loggedInUserNickname");
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     useEffect(() => {
@@ -58,7 +60,7 @@ function PostDetail() {
             navigate('/');
         } catch (error) {
             console.error("게시글 삭제 실패: ", error);
-            
+
             if (error.response.status === 401) {
                 alert("로그인이 필요합니다.");
                 navigate('/user/login');
@@ -73,12 +75,15 @@ function PostDetail() {
             <h4 className={styles.title}>제목: {post.title}</h4>
             <div>{localStorage.getItem("")}</div>
             {
-                loggedInUserNickname === post.nickname ?
-                <div className={styles.buttonContainer}>
-                    <button className={styles.navigationButton} onClick={()=>navigate(`/post/edit/${postId}`)}>수정</button>
-                    <button className={styles.navigationButton} onClick={()=>setShowDeleteModal(true)}>삭제</button>
-                    <button className={styles.navigationButton} onClick={()=>navigate(`/`)}>홈</button>
-                </div> : null
+                loggedInUser.nickname === post.nickname ?
+                    <div className={styles.buttonContainer}>
+                        <button className={styles.navigationButton}
+                                onClick={() => navigate(`/post/edit/${postId}`)}>수정
+                        </button>
+                        <button className={styles.navigationButton} onClick={() => setShowDeleteModal(true)}>삭제</button>
+                        <button className={styles.navigationButton} onClick={() => navigate(`/post/public`)}>목록</button>
+                    </div> :
+                    <button className={styles.navigationButton} onClick={() => navigate(`/post/public`)}>목록</button>
             }
 
             <p className={styles.content}>요약: {post.content}</p>
