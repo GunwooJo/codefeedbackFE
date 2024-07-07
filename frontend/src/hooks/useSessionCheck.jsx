@@ -9,6 +9,7 @@ const useSessionCheck = () => {
         email: '',
         nickname: ''
     });
+    const [statusCode, setStatusCode] = useState('');
 
     useEffect(() => {
         const checkSession = async () => {
@@ -16,6 +17,7 @@ const useSessionCheck = () => {
 
                 const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/session/check`, {withCredentials: true});
 
+                setStatusCode(response.status);
                 if (response.status === 200) {
                     setSessionValid(true);
                     setLoggedInUser({
@@ -36,7 +38,7 @@ const useSessionCheck = () => {
         checkSession();
     }, []);
 
-    return { sessionValid, sessionChecking, error, loggedInUser };
+    return { sessionValid, sessionChecking, error, loggedInUser, statusCode };
 };
 
 export default useSessionCheck;
