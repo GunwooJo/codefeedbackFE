@@ -73,7 +73,6 @@ function PostDetail() {
     return (
         <div>
             <h4 className={styles.title}>제목: {post.title}</h4>
-            <div>{localStorage.getItem("")}</div>
             {
                 loggedInUser.nickname === post.nickname ?
                     <div className={styles.buttonContainer}>
